@@ -1,0 +1,61 @@
+@import "./variables.scss";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  color: $main-text;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+input,
+button {
+  border: none;
+  background-color: transparent;
+}
+
+input {
+  outline: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+.page__list {
+  padding: 30px;
+  & a {
+    font-size: 18px;
+    &:hover {
+      color: $blue;
+    }
+  }
+  & li {
+    padding: 10px;
+    list-style: none;
+  }
+}
+
+
