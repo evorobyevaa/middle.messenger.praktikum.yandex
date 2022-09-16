@@ -4,6 +4,7 @@
   "description": "Мессенджер",
   "scripts": {
     "dev": "parcel src/index.hbs --no-cache",
+    "build": "parcel build src/index.hbs",
     "start": "parcel build src/index.hbs && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
