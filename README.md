@@ -12,7 +12,7 @@
 
 - [Макет от Яндекс.Практикума](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1)
 - [Страница проекта на Netlify](https://sprint-1--startling-granita-53f6c0.netlify.app/)
-- [Pull request 1 спринт]()
+- [Pull request 1 спринт](https://github.com/evorobyevaa/middle.messenger.praktikum.yandex/pull/1)
 
 ### Основные команды
 
