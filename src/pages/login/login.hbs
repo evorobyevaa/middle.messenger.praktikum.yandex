@@ -1,0 +1,17 @@
+{{!< main}}
+
+<div class="center">
+  <div class="auth">
+    <form class="auth__form" action="">
+      <h1 class="auth__title">Вход</h1>
+      <div class="auth__fields">
+        {{> input containinerClass="auth__field" inputClass="auth__input" inputType="text" inputName="login" labelValue="Логин"}}
+        {{> input containinerClass="auth__field" inputClass="auth__input" inputType="password" inputName="password" labelValue="Пароль"}}
+      </div>
+      <div class="auth__btns">
+        {{> button buttonClass="auth__btn" buttonType="submit" buttonText="Авторизоваться"}}
+        {{> link linkClass="auth__link" href="../signin/signin.hbs" linkText="Нет аккаунта?"}}
+      </div>
+    </form>
+  </div>
+</div>
