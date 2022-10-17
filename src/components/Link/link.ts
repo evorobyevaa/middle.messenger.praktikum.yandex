@@ -3,7 +3,7 @@ import Block from 'core/Block';
 import './link.scss';
 
 interface linkProps {
-  className?: string;
+  className?: string[];
   href?: string;
   text?: string;
   events?: {

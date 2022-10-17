@@ -3,7 +3,7 @@ import Block from 'core/Block';
 import './button.scss';
 
 interface ButtonProps {
-  className?: string;
+  className?: string[];
   text?: string;
   onClick?: () => void;
 

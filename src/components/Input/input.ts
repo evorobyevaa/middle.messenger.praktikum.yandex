@@ -3,7 +3,7 @@ import Block from 'core/Block';
 import './input.scss';
 
 interface InputProps {
-  className?: string;
+  className?: string[];
   type?: string;
   name?: string;
   onInput?: () => void;

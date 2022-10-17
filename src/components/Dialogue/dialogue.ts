@@ -6,7 +6,7 @@ interface dialogueProps {
   name?: string;
   textYou?: string;
   text?: string;
-  time?: string;
+  time?: string | Date;
   count?: number;
 }
 

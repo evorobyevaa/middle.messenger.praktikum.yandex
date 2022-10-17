@@ -14,8 +14,8 @@ interface Options {
 
 function queryStringify(data: string) {
   return Object.entries(data)
-    .map(([key, value]) => `${key}=${value}&`)
-    .join('')
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&')
     .slice(0, -1);
 }
 
@@ -23,36 +23,32 @@ export default class HTTPTransport {
   get = (url: string, options: Options = { method: Method.GET }) => {
     return this.request(
       `${url}${queryStringify(options.data)}`,
-      { ...options },
-      options.timeout
+      { ...options }
     );
   };
 
   post = (url: string, options: Options = { method: Method.POST }) => {
     return this.request(
       url,
-      { ...options },
-      options.timeout
+      { ...options }
     );
   };
 
   put = (url: string, options: Options = { method: Method.PUT }) => {
     return this.request(
       url,
-      { ...options },
-      options.timeout
+      { ...options }
     );
   };
 
   delete = (url: string, options: Options = { method: Method.DELETE }) => {
     return this.request(
       url,
-      { ...options },
-      options.timeout
+      { ...options }
     );
   };
 
-  request = (url: string, options: Options, timeout = 5000) => {
+  request = (url: string, options: Options) => {
     const { headers = {}, method, data } = options;
 
     return new Promise(function (resolve, reject) {
@@ -69,7 +65,7 @@ export default class HTTPTransport {
 
       xhr.onabort = reject;
       xhr.onerror = reject;
-      xhr.timeout = timeout;
+      xhr.timeout = (options.timeout) ? options.timeout: 0;
       xhr.ontimeout = reject;
 
       if (method === Method.GET || !data) {

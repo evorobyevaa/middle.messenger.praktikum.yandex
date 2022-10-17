@@ -4,8 +4,8 @@ import { validateForm } from 'helpers/ValidateForm';
 import './input.scss';
 
 interface InputContainerProps {
-  containinerClassName?: string;
-  className?: string;
+  containinerClassName?: string[];
+  className?: string[];
   type?: string;
   name?: string;
   label?: string;

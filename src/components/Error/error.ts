@@ -3,7 +3,7 @@ import Block from 'core/Block';
 import './error.scss';
 
 interface ErrorProps {
-  value?: number;
+  value?: string | number;
   description?: string;
 }
 

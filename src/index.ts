@@ -31,39 +31,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
   switch (path) {
     case "/login": {
-      renderDOM(new LoginPage());
+      renderDOM('#app', new LoginPage());
       break;
     }
     case "/signin": {
-      renderDOM(new SigninPage());
+      renderDOM('#app', new SigninPage());
       break;
     }
     case "/chats": {
-      renderDOM(new ChatsPage());
+      renderDOM('#app', new ChatsPage());
       break;
     }
     case "/profile": {
-      renderDOM(new ProfilePage());
+      renderDOM('#app', new ProfilePage());
       break;
     }
     case "/profile/edit": {
-      renderDOM(new ProfileEditPage());
+      renderDOM('#app', new ProfileEditPage());
       break;
     }
     case "/profile/edit-password": {
-      renderDOM(new ProfileEditPasswordPage());
+      renderDOM('#app', new ProfileEditPasswordPage());
       break;
     }
     case "/404": {
-      renderDOM(new Page404());
+      renderDOM('#app', new Page404());
       break;
     }
     case "/500": {
-      renderDOM(new Page500());
+      renderDOM('#app', new Page500());
       break;
     }
 
     default:
-      renderDOM(new HomePage());
+      renderDOM('#app', new HomePage());
   }
 });
