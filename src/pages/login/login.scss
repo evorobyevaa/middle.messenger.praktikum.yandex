@@ -1,0 +1,44 @@
+@import "../../styles/variables.scss";
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  min-height: 460px;
+  padding: 50px 30px 30px;
+  border-radius: 12px;
+  background: $white;
+  box-shadow: 0 0 6px $shadow;
+
+  &__title {
+    margin-bottom: 40px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__fields {
+    margin-bottom: 37px;
+  }
+
+  &__field {
+    position: relative;
+  }
+
+  &__btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  &__btn {
+    margin-bottom: 14px;
+  }
+}
