@@ -1,5 +1,5 @@
 import Block from 'core/Block';
-import { validateForm } from 'helpers/ValidateForm';
+import { Validator } from 'helpers/ValidateForm';
 
 import './input.scss';
 
@@ -10,25 +10,31 @@ interface InputContainerProps {
   name?: string;
   label?: string;
   error?: string;
-  onInput?: () => void;
-  onFocus?: () => void;
+  validation: string;
 }
 
 export class InputContainer extends Block {
   static componentName = "InputContainer";
   
   constructor(props: InputContainerProps) {
+    const validator = new Validator();
+
     super({
       ...props,
       onBlur: (e: FocusEvent) => {
-        const inputEl = e.target as HTMLInputElement;
+        const input = e.target as HTMLInputElement;
 
-        const errorMessage = validateForm([
-          {type: inputEl.name, value: inputEl.value}
-        ])
-
-        this.refs.errorRef.setProps({error: errorMessage});
-      }
+        const [isValid, message] = validator.validate(input.name, input.value);
+        if (!isValid) {
+          this.refs.errorRef.setProps({
+            error: message,
+          })
+        } else {
+          this.refs.errorRef.setProps({
+            error: "",
+          })
+        } 
+      }, 
     });
   }
 
@@ -46,7 +52,7 @@ export class InputContainer extends Block {
           onBlur=onBlur
         }}}
         <label class="input__label">{{label}}</label>
-        {{{ InputError ref="errorRef" error=error }}}
+        {{{ InputError isValid=true ref="errorRef" error=error }}}
       </div>
     `;
   }
