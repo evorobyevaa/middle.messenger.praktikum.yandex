@@ -1,4 +1,4 @@
-import { UserAPI, EditProfilePassword, EditProfileData } from "../api/UserAPI";
+import { UserAPI, EditProfilePassword, EditProfileData } from "api/userAPI";
 import store from "core/Store";
 
 export class UserController {
