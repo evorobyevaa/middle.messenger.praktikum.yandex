@@ -11,4 +11,9 @@
   &:hover {
     box-shadow: 0 0 5px $main-text;
   }
+
+  &:disabled {
+    cursor: default;
+    background-color: $gray-text;
+  }
 }

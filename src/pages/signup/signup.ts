@@ -1,13 +1,18 @@
 import { Block } from 'core';
 import { getFormData } from 'helpers/getFormData';
 
-export class SigninPage extends Block {
+import { SignupData } from 'api/authAPI';
+import AuthController from 'controllers/AuthController';
+
+export class SignUpPage extends Block {
   constructor() {
     super();
 
     this.setProps({
-      onSubmit: () => {
-        getFormData();
+      onSubmit: (e: Event) => {
+        e.preventDefault();
+        const data = getFormData();
+        AuthController.signup(data as SignupData);
       }
     }) 
   }
@@ -92,7 +97,7 @@ export class SigninPage extends Block {
             }}}
             {{{ Link 
               className="auth__link" 
-              href="#" 
+              href="/login" 
               text="Войти"
             }}}
           </div>

@@ -1,0 +1,18 @@
+@import "../../styles/variables.scss";
+
+.profile__avatar {
+  width: 130px;
+  height: 130px;
+  margin-bottom: 21px;
+  border-radius: 50%;
+  background: url("../../../static/img/avatar-default.svg"), $dialogue-bg-fields;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+

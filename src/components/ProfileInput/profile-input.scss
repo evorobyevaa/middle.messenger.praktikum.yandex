@@ -2,11 +2,11 @@
 
 .profile {
   &__field {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-
     & + & {
       border-top: 1px solid $line;
     }
@@ -16,7 +16,9 @@
     width: 100%;
     text-align: right;
     color: $gray-text;
-
+    &[name="avatar"] {
+      margin-left: 217px;
+    }
     &-label {
       min-width: 180px;
     }

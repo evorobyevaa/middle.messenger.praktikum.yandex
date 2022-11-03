@@ -10,9 +10,11 @@
     "stylelint": "stylelint **/*.scss --fix"
   },
   "alias": {
+    "api": "./src/api",
+    "components": "./src/components",
+    "controllers": "./src/controllers",
     "core": "./src/core",
     "helpers": "./src/helpers",
-    "components": "./src/components",
     "pages": "./src/pages"
   },
   "author": "",
@@ -23,6 +25,7 @@
     "@types/node": "18.7.18",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "5.39.0",
+    "chai": "4.3.6",
     "eslint": "8.24.0",
     "eslint-config-airbnb": "19.0.4",
     "express": "4.18.2",

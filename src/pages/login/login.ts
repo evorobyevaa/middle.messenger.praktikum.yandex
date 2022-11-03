@@ -1,15 +1,22 @@
 import { Block } from 'core';
 import { getFormData } from 'helpers/getFormData';
 
+import { SigninData } from 'api/authAPI';
+import AuthController from 'controllers/AuthController';
+
 import './login.scss';
 
 export class LoginPage extends Block {
+
   constructor() {
     super();
 
     this.setProps({
-      onSubmit: () => {
-        getFormData();
+      onSubmit: (e: Event) => {
+        e.preventDefault();
+        const data = getFormData();
+
+        AuthController.signin(data as SigninData)
       },
     })
   }
@@ -48,7 +55,7 @@ export class LoginPage extends Block {
             }}}
             {{{ Link 
               className="auth__link" 
-              href="/signin" 
+              href="/signup" 
               text="Нет аккаунта?"
             }}}
           </div>
