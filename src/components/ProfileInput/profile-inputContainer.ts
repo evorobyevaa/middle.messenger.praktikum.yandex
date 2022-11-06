@@ -14,22 +14,27 @@ export class ProfileInputContainer extends Block {
   
   constructor(props: ProfileInputContainerProps) {
     const validator = new Validator();
+    const focusBlurValidate = (e: FocusEvent) => {
+      const input = e.target as HTMLInputElement;
 
+      const [isValid, message] = validator.validate(input.name, input.value);
+      if (!isValid) {
+        this.refs.errorRef.setProps({
+          error: message,
+        })
+      } else {
+        this.refs.errorRef.setProps({
+          error: "",
+        })
+      } 
+    }
     super({
       ...props,
       onBlur: (e: FocusEvent) => {
-        const input = e.target as HTMLInputElement;
-
-        const [isValid, message] = validator.validate(input.name, input.value);
-        if (!isValid) {
-          this.refs.errorRef.setProps({
-            error: message,
-          })
-        } else {
-          this.refs.errorRef.setProps({
-            error: "",
-          })
-        } 
+        focusBlurValidate(e)
+      },
+      onFocus: (e: FocusEvent) => {
+        focusBlurValidate(e)
       }
     })
   }

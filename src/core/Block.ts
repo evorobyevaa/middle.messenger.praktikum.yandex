@@ -4,7 +4,7 @@ import EventBus from './EventBus';
 
 type Events = Values<typeof Block.EVENTS>;
 
-export default class Block {
+export default abstract class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -18,7 +18,7 @@ export default class Block {
 
   protected _element: Nullable<HTMLElement> = null;
 
-  protected props: any;
+  protected readonly  props: P;
 
   protected children: {[id: string]: Block} = {};
 
@@ -26,10 +26,10 @@ export default class Block {
 
   eventBus: () => EventBus<Events>;
 
-  public constructor(props?: any) {
+  public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
-    this.props = this._makePropsProxy(props || {} as any);
+    this.props = this._makePropsProxy(props || ({} as P));
 
     this.eventBus = () => eventBus;
 
@@ -109,7 +109,7 @@ export default class Block {
     return this.element!;
   }
 
-  private _makePropsProxy(props: any) {
+  private _makePropsProxy(props: P): P {
     const self = this;
 
     return new Proxy(props as unknown as object, {
@@ -126,7 +126,7 @@ export default class Block {
       deleteProperty() {
         throw new Error('Нет доступа');
       },
-    })
+    }) as unknown as P;
   }
 
   private _createDocumentElement(tagName: string) {
@@ -134,7 +134,7 @@ export default class Block {
   }
 
   private _removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const events: Record<string, () => void> = (this.props as P).events;
 
     if (!events || !this._element) {
       return;
@@ -146,7 +146,7 @@ export default class Block {
   }
 
   private _addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const events: Record<string, () => void> = (this.props as P).events;
 
     if (!events) {
       return;
@@ -177,10 +177,11 @@ export default class Block {
       const content = component.getContent();
       stub.replaceWith(content);
 
-      const layoutContent = content.querySelector('[data-layout="1"]');
+      const slotContent = content.querySelector('[data-slot="1"]') as HTMLDivElement;
 
-      if (layoutContent && stubChilds.length) {
-        layoutContent.append(...stubChilds);
+      if (slotContent && stubChilds.length) {
+        slotContent.append(...stubChilds);
+        delete slotContent.dataset.slot
       }
     });
 

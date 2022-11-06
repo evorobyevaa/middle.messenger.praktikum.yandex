@@ -6,7 +6,6 @@ interface ProfileInputProps {
   type?: string;
   name?: string;
   value?: string;
-  onInput?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -14,8 +13,8 @@ interface ProfileInputProps {
 export class ProfileInput extends Block {
   static componentName = "ProfileInput";
   
-  constructor({onInput, onFocus, onBlur, ...props}: ProfileInputProps) {
-    super({events: {input: onInput, focus: onFocus, blur: onBlur}, ...props});
+  constructor({onFocus, onBlur, ...props}: ProfileInputProps) {
+    super({events: {focus: onFocus, blur: onBlur}, ...props});
   }
 
   protected render(): string {
@@ -32,6 +31,3 @@ export class ProfileInput extends Block {
     `;
   }
 }
-
-
-

@@ -5,8 +5,8 @@ import './button.scss';
 interface ButtonProps {
   className?: string[];
   text?: string;
+  type?: string;
   onClick?: () => void;
-
 }
 
 export class Button extends Block {
@@ -19,7 +19,7 @@ export class Button extends Block {
   protected render(): string {
     // language=hbs
     return `
-      <button class="btn {{className}}" type="button">{{text}}</button>
+      <button class="btn {{className}}" type={{{type}}}>{{text}}</button>
     `;
   }
 }

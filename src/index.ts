@@ -16,6 +16,7 @@ import ProfileEditPage from 'pages/profile/edit';
 
 import Error from 'components/Error';
 import Link from 'components/Link';
+import Form from 'components/Form';
 import Button from 'components/Button';
 import { Input, InputError, InputContainer} from 'components/Input';
 import Dialogue from 'components/Dialogue';
@@ -29,6 +30,7 @@ import DialogueMain from 'components/DialogueMain';
 
 registerComponent(Error);
 registerComponent(Link);
+registerComponent(Form);
 registerComponent(Button);
 registerComponent(Input);
 registerComponent(InputError);
@@ -67,6 +69,4 @@ window.addEventListener("DOMContentLoaded", async () => {
   } catch (e) {
     Router.start();
   }
-
-  
 })

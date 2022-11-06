@@ -6,7 +6,6 @@ interface InputProps {
   className?: string[];
   type?: string;
   name?: string;
-  onInput?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -14,8 +13,8 @@ interface InputProps {
 export class Input extends Block {
   static componentName = "Input";
   
-  constructor({onInput, onFocus, onBlur, ...props}: InputProps) {
-    super({events: {input: onInput, focus: onFocus, blur: onBlur}, ...props});
+  constructor({onFocus, onBlur, ...props}: InputProps) {
+    super({events: {focus: onFocus, blur: onBlur}, ...props});
   }
 
   protected render(): string {

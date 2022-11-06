@@ -2,6 +2,8 @@
 export enum ValidateType {
   Login = "login",
   Password = "password",
+  NewPassword = "newPassword",
+  OldPassword = "oldPassword",
   FirstName = "first_name",
   SecondName = "second_name",
   Email = "email",
@@ -54,6 +56,8 @@ export class Validator {
       case ValidateType.Login:
         return this.login(value);
       case ValidateType.Password:
+      case ValidateType.NewPassword:
+      case ValidateType.OldPassword:
         return this.password(value);
       case ValidateType.FirstName:
       case ValidateType.SecondName:
@@ -67,6 +71,24 @@ export class Validator {
       default: {
         return [true, ""];
       }
+    }
+  }
+
+  validateForm(selector: string) {
+    const form = document.querySelector(selector) as HTMLFormElement;
+    const errorMsg = form.querySelectorAll(".input__error");
+    let error = 0;
+    errorMsg.forEach((err) => {
+      if (err.textContent !== "") {
+        error = error + 1;
+      }
+    })
+  
+    if (error === 0) {
+      return true;
+    } else {
+      alert("Заполните все поля правильно");
+      return false;
     }
   }
 }

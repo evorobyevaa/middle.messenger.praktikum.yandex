@@ -9,7 +9,3 @@ export class Page500 extends Block {
     `
   }
 }
-
-
-
-

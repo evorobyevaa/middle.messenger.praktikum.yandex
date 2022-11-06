@@ -11,6 +11,8 @@ interface Options {
   headers?: Record<string, string>;
 }
 
+type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+
 function queryStringify(data: Record<string, string>): string {
   return Object.entries(data)
     .map(([key, value]) => `${key}=${value}`)
@@ -26,20 +28,20 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  get = (url: string, options: Options) => {
+  get: HTTPMethod = (url, options = {}) => {
     const newUrl = options.data ? url + queryStringify(options.data as Record<string, string>) : url;
     return this.request(newUrl, { ...options });
   }
 
-  post = (url: string, options: Options) => {
+  post: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: Method.POST });
   }
 
-  put = (url: string, options: Options) => {
+  put: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: Method.PUT });
   }
 
-  delete = (url: string, options: Options) => {
+  delete: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: Method.DELETE });
   }
 

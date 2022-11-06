@@ -18,24 +18,29 @@ export class InputContainer extends Block {
   
   constructor(props: InputContainerProps) {
     const validator = new Validator();
+    const focusBlurValidate = (e: FocusEvent) => {
+      const input = e.target as HTMLInputElement;
 
+      const [isValid, message] = validator.validate(input.name, input.value);
+      if (!isValid) {
+        this.refs.errorRef.setProps({
+          error: message,
+        })
+      } else {
+        this.refs.errorRef.setProps({
+          error: "",
+        })
+      } 
+    }
     super({
       ...props,
       onBlur: (e: FocusEvent) => {
-        const input = e.target as HTMLInputElement;
-
-        const [isValid, message] = validator.validate(input.name, input.value);
-        if (!isValid) {
-          this.refs.errorRef.setProps({
-            error: message,
-          })
-        } else {
-          this.refs.errorRef.setProps({
-            error: "",
-          })
-        } 
-      }, 
-    });
+        focusBlurValidate(e)
+      },
+      onFocus: (e: FocusEvent) => {
+        focusBlurValidate(e)
+      }
+    })
   }
 
   protected render(): string {
@@ -47,7 +52,6 @@ export class InputContainer extends Block {
           type=type 
           name=name
           error=error
-          onInput=onInput
           onFocus=onFocus
           onBlur=onBlur
         }}}

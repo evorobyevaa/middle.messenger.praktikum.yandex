@@ -37,7 +37,7 @@ export class MessageController {
           type: 'ping',
         })
       );
-    }, 5000);
+    }, 50000);
   }
 
   private readonly _handleClose = (e: CloseEventInit) => {
