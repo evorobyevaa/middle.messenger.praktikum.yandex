@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+.chats {
+  &__delete.btn {
+    width: 120px;
+   margin-left: auto;
+    background-color: $red-text;
+  }
+  &__history {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 20px;
+    width: 75%;
+    height: 100vh;
+  }
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1 solid $line;
+    padding-bottom: 10px;
+  }
+  &__action-btn {
+    margin-left: auto;
+    padding: 11px;
+    background-color: transparent;
+    background-image: url("../../../static/img/dots-action.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

@@ -1,57 +1,71 @@
 import { Block } from "core";
+import AuthController from "controllers/AuthController";
+import { withStore } from "core/Store";
 
 import "./profile.scss";
 
-export class ProfilePage extends Block {
+export class ProfilePageBase extends Block {
+  constructor() {
+    super();
+    AuthController.fetchUser();
+
+    this.setProps({
+      onLogout: (e: Event) => {
+        e.preventDefault();
+        AuthController.logout();
+      }
+    })
+  }
+
   protected render(): string {
     return `
       <div class="profile__container">
         <a class="link-back" href="/chats"></a>
         <div class="center">
           <form class="profile" action="">
-            <div class="profile__avatar"></div>
-            <div class="profile__name">Иван</div>
+            {{{ Avatar path=avatar }}}
+            <div class="profile__name">{{first_name}}</div>
             <div class="profile__fields">
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Почта" 
                 type="text" 
                 name="email" 
-                value="pochta@yandex.ru"
+                value=email
                 readonly="readonly"
               }}}
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Логин" 
                 type="text" 
                 name="login" 
-                value="ivanivanov"
+                value=login
                 readonly="readonly"
               }}}
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Имя" 
                 type="text" 
                 name="first_name" 
-                value="Иван"
+                value=first_name
                 readonly="readonly"
               }}}
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Фамилия" 
                 type="text" 
                 name="second_name" 
-                value="Иванов"
+                value=second_name
                 readonly="readonly"
               }}}
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Имя в чате" 
                 type="text" 
                 name="display_name" 
-                value="Иван"
+                value=display_name
                 readonly="readonly"
               }}}
-            {{{ ProfileInput
+            {{{ ProfileInputContainer
                 label="Телефон" 
                 type="tel" 
                 name="phone" 
-                value="+7(909)967-30-30"
+                value=phone
                 readonly="readonly"
               }}}
             </div>
@@ -68,7 +82,7 @@ export class ProfilePage extends Block {
               }}}
               {{{ Link 
                 className="profile__link profile__link--exit" 
-                href="/login" 
+                onClick=onLogout 
                 text="Выйти"
               }}}
             </div>
@@ -79,3 +93,7 @@ export class ProfilePage extends Block {
   }
 }
 
+
+export const withUser = withStore((state) => ({ ...state.user }));
+
+export const ProfilePage = withUser(ProfilePageBase);

@@ -6,16 +6,14 @@ interface linkProps {
   className?: string;
   href?: string;
   text?: string;
-  events?: {
-    click: () => void;
-  };
+  onClick?: () => void;
 }
 
 export class Link extends Block {
   static componentName = "Link";
   
-  constructor(props: linkProps) {
-    super(props);
+  constructor({onClick, ...props}: linkProps) {
+    super({events: {click: onClick}, ...props});
   }
 
   protected render(): string {

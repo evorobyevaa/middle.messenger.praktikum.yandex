@@ -11,21 +11,6 @@
     flex-direction: column;
   }
 
-  &__avatar {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 21px;
-    border-radius: 50%;
-    background: url("../../../static/img/avatar-default.svg"), $dialogue-bg-fields;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    & img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-
   &__name {
     margin-bottom: 60px;
     font-weight: 600;
@@ -54,7 +39,7 @@
       border-top: 1px solid $line;
     }
 
-    &--exit {
+    &--exit.link {
       color: $red-text;
     }
   }

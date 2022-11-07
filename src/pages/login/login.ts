@@ -1,15 +1,28 @@
 import { Block } from 'core';
 import { getFormData } from 'helpers/getFormData';
+import { SigninData } from 'api/authAPI';
+import AuthController from 'controllers/AuthController';
+import { Validator } from 'helpers/ValidateForm';
 
 import './login.scss';
 
 export class LoginPage extends Block {
+
   constructor() {
     super();
 
+    const validator = new Validator();
+
     this.setProps({
-      onSubmit: () => {
-        getFormData();
+      onSubmit: (e: Event) => {
+        e.preventDefault();
+        
+        if(!validator.validateForm('form')) {
+          return
+        }
+
+        const data = getFormData();
+        AuthController.signin(data as SigninData)
       },
     })
   }
@@ -17,7 +30,7 @@ export class LoginPage extends Block {
     return `
     <div class="center">
       <div class="auth">
-        <form class="auth__form" action="">
+        {{# Form className="auth__form" onSubmit=onSubmit}}
           <h1 class="auth__title">Вход</h1>
           <div class="auth__fields">
             {{{ InputContainer
@@ -44,15 +57,14 @@ export class LoginPage extends Block {
               className="auth__btn" 
               type="submit" 
               text="Авторизоваться"
-              onClick=onSubmit
             }}}
             {{{ Link 
               className="auth__link" 
-              href="/signin" 
+              href="/signup" 
               text="Нет аккаунта?"
             }}}
           </div>
-        </form>
+        {{/Form}}
       </div>
     </div>
     `;

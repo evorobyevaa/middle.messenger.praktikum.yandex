@@ -1,35 +1,46 @@
 import Block from 'core/Block';
-import { validateForm } from 'helpers/ValidateForm';
+import { Validator } from 'helpers/ValidateForm';
 
 import './input.scss';
 
 interface InputContainerProps {
-  containinerClassName?: string;
-  className?: string;
+  containinerClassName?: string[];
+  className?: string[];
   type?: string;
   name?: string;
   label?: string;
   error?: string;
-  onInput?: () => void;
-  onFocus?: () => void;
+  validation: string;
 }
 
 export class InputContainer extends Block {
   static componentName = "InputContainer";
   
   constructor(props: InputContainerProps) {
+    const validator = new Validator();
+    const focusBlurValidate = (e: FocusEvent) => {
+      const input = e.target as HTMLInputElement;
+
+      const [isValid, message] = validator.validate(input.name, input.value);
+      if (!isValid) {
+        this.refs.errorRef.setProps({
+          error: message,
+        })
+      } else {
+        this.refs.errorRef.setProps({
+          error: "",
+        })
+      } 
+    }
     super({
       ...props,
       onBlur: (e: FocusEvent) => {
-        const inputEl = e.target as HTMLInputElement;
-
-        const errorMessage = validateForm([
-          {type: inputEl.name, value: inputEl.value}
-        ])
-
-        this.refs.errorRef.setProps({error: errorMessage});
+        focusBlurValidate(e)
+      },
+      onFocus: (e: FocusEvent) => {
+        focusBlurValidate(e)
       }
-    });
+    })
   }
 
   protected render(): string {
@@ -41,12 +52,11 @@ export class InputContainer extends Block {
           type=type 
           name=name
           error=error
-          onInput=onInput
           onFocus=onFocus
           onBlur=onBlur
         }}}
         <label class="input__label">{{label}}</label>
-        {{{ InputError ref="errorRef" error=error }}}
+        {{{ InputError isValid=true ref="errorRef" error=error }}}
       </div>
     `;
   }

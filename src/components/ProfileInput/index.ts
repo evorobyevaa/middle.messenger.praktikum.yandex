@@ -1,1 +1,2 @@
-export { ProfileInput as default } from './profile-input';
+export { ProfileInput } from './profile-input';
+export { ProfileInputContainer } from './profile-inputContainer';
