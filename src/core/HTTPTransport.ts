@@ -11,7 +11,7 @@ interface Options {
   headers?: Record<string, string>;
 }
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+type HTTPMethod = (url: string, options?: Options) => Promise<any>;
 
 function queryStringify(data: Record<string, string>): string {
   return Object.entries(data)

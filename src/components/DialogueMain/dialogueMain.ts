@@ -35,7 +35,7 @@ export class DialogueMain extends Block {
         {{# Form className="chats__form" onSubmit=onSubmit }}
           <button class="chats__attach-btn" type="button"></button>
           {{{ InputContainer containinerClassName="chats__input-container" className="chats__input" type="text" name="message" }}}
-          {{{ Button className="chats__submit-btn" type="submit" }}}
+          {{{ Button className="btn chats__submit-btn" type="submit" }}}
         {{/Form}}
       </div>
     </div>

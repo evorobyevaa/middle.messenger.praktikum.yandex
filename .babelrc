@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    ["module-resolver", {
+       "alias": {
+        "api": "./src/api",
+        "components": "./src/components",
+        "controllers": "./src/controllers",
+        "core": "./src/core",
+        "helpers": "./src/helpers",
+        "pages": "./src/pages",
+        "hocs": "./src/hocs"
+       }
+    }]
+  ]
+}

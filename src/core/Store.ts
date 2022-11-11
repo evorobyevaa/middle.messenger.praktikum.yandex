@@ -35,8 +35,6 @@ export function withStore(mapStateToProps: (state: any) => any) {
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
           
-          previousState = stateProps;
-
           this.setProps({ ...stateProps });
         });
       }

@@ -5,8 +5,8 @@ import { withStore } from "core/Store";
 import "./profile.scss";
 
 export class ProfilePageBase extends Block {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super({...props});
     AuthController.fetchUser();
 
     this.setProps({
@@ -20,7 +20,10 @@ export class ProfilePageBase extends Block {
   protected render(): string {
     return `
       <div class="profile__container">
-        <a class="link-back" href="/chats"></a>
+        {{{ Link 
+          className="link-back" 
+          href="/chats" 
+        }}}
         <div class="center">
           <form class="profile" action="">
             {{{ Avatar path=avatar }}}
@@ -71,17 +74,17 @@ export class ProfilePageBase extends Block {
             </div>
             <div class="profile__links">
               {{{ Link 
-                className="profile__link" 
+                className="profile__link link" 
                 href="/profile/edit" 
                 text="Изменить данные"
               }}}
               {{{ Link 
-                className="profile__link" 
+                className="profile__link link" 
                 href="/profile/edit-password" 
                 text="Изменить пароль"
               }}}
-              {{{ Link 
-                className="profile__link profile__link--exit" 
+              {{{ Button 
+                className="profile__btn" 
                 onClick=onLogout 
                 text="Выйти"
               }}}

@@ -32,9 +32,12 @@
     border-radius: 30px;
     padding: 10px 20px;
     background-color: $dialogue-bg-fields;
+
     &-container {
       width: 100%;
+      position: relative;
     }
+
     &.input {
       margin-bottom: 0;
     }

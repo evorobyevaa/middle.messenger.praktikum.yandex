@@ -31,7 +31,5 @@ export class Route {
       renderDOM(this.query, this.block);
       return;
     }
-
-    this.block.show();
   }
 }

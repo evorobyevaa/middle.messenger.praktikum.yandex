@@ -24,7 +24,7 @@ export class DialogueHeader extends Block {
         <div class="dialogue__photo"></div>
         <div class="dialogue__name">{{activeChatTitle}}</div>
         {{{ Button
-          className="chats__delete" 
+          className="btn chats__delete" 
           text="Удалить чат" 
           onClick=onDeleteChat
         }}}

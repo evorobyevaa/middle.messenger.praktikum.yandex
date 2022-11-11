@@ -1,7 +1,7 @@
 import { Block, Router } from "core";
 
-export function withRouter(Component: typeof Block) {
-  type Props = typeof Component;
+export function withRouter(Component: typeof Block<any>) {
+  type Props = any;
 
   return class WithRouter extends Component {
     constructor(props: Props & PropsWithRouter) {

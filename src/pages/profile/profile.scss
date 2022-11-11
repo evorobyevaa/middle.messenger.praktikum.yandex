@@ -38,10 +38,13 @@
     & + & {
       border-top: 1px solid $line;
     }
-
-    &--exit.link {
-      color: $red-text;
-    }
+  }
+  &__btn {
+    width: 100%;
+    text-align: left;
+    color: $red-text;
+    border-top: 1px solid $line;
+    padding: 10px 0;
   }
 }
 

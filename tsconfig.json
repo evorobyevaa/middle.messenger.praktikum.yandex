@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2020",
     "module": "commonjs",
     "typeRoots": ["node_modules/@types", "typings/app.d.ts"],
     "sourceMap": true,
@@ -11,6 +11,10 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+      "files": true
   }
 }
