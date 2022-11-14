@@ -48,7 +48,7 @@ export class Validator {
   }
 
   message(value: string): [boolean, string] {
-    return [!value, "Сообщение не может быть пустым"];
+    return [!!value, "Сообщение не может быть пустым"];
   }
 
   validate(type: string, value: string): (boolean | string)[] {

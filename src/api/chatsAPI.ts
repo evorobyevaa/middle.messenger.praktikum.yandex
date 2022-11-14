@@ -1,5 +1,5 @@
 import HTTPTransport from "core/HTTPTransport";
-import { User } from './AuthAPI';
+import { User } from './authAPI';
 
 export interface ChatData {
   id: number;

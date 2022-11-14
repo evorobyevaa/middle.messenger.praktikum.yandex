@@ -56,21 +56,26 @@ export class MessageController {
   }
 
   private readonly _handleMassage = (e: MessageEvent) => {
-    const data = JSON.parse(e.data);
+    try {
+      const data = JSON.parse(e.data);
+      if (Array.isArray(data)) {
+        if (!data.length) {
+          store.set("messages", []);
+        } else if (data[0].id === 0) {
+          store.set("messages", data);
+        } else {
+          const messages = [...data];
+  
+          store.set("messages", messages);
 
-    if (Array.isArray(data)) {
-      if (!data.length) {
-        store.set("messages", []);
-      } else if (data[0].id === 0) {
-        store.set("messages", data);
-      } else {
-        const messages = [...data];
-
+        }
+      } else if (typeof data === "object" && data.type === "message") {
+        const messages = [data, ...store.getState().messages];
         store.set("messages", messages);
+
       }
-    } else if (typeof data === "object" && data.type === "message") {
-      const messages = [data, ...store.getState().messages];
-      store.set("messages", messages);
+    } catch {
+      console.log("Ошибка запроса")
     }
   };
 

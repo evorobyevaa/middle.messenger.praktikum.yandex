@@ -54,12 +54,12 @@ export class LoginPage extends Block {
           </div>
           <div class="auth__btns">
             {{{ Button 
-              className="auth__btn" 
+              className="btn auth__btn" 
               type="submit" 
               text="Авторизоваться"
             }}}
             {{{ Link 
-              className="auth__link" 
+              className="auth__link link" 
               href="/signup" 
               text="Нет аккаунта?"
             }}}

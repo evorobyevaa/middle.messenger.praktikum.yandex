@@ -21,7 +21,7 @@ export class Modal extends Block {
     <div class="modal {{className}}">
       <p class="modal__title">{{title}}</p>
       {{{ Input type="text" name=name }}}
-      {{{ Button text=text onClick=onClick }}}
+      {{{ Button className="btn" text=text onClick=onClick }}}
     </div>
     `;
   }

@@ -19,7 +19,7 @@ export class Button extends Block {
   protected render(): string {
     // language=hbs
     return `
-      <button class="btn {{className}}" type={{{type}}}>{{text}}</button>
+      <button class="{{className}}" type={{{type}}}>{{text}}</button>
     `;
   }
 }

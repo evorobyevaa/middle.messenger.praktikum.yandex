@@ -1,6 +1,6 @@
 import { Block } from "core";
-import {withStore} from "../../core/Store";
-import ChatsController from "../../controllers/ChatsController";
+import { withStore } from "core/Store";
+import ChatsController from "controllers/ChatsController";
 import { getFormData } from "helpers/getFormData";
 import { ChatData } from "api/chatsAPI";
 
@@ -15,7 +15,6 @@ export class ChatsPageBase extends Block {
       (chat: ChatData) => chat.id === this.props.activeChat
     );
     const title = activeChat?.title;
-    
     this.setProps({
       onClickCreateChat: (e: Event) => {
         e.preventDefault();
@@ -38,15 +37,20 @@ export class ChatsPageBase extends Block {
       activeChatTitle: title
     })
   }
-  
+
+
   protected render(): string {
     return `   
     <div class="chats">
       <div class="chats__dialogues dialogues">
         <div class="dialogues__header">
-          <a href="/profile" class="dialogues__link">Профиль</a>
+          {{{ Link 
+            className="dialogues__link" 
+            href="/profile" 
+            text="Профиль"
+          }}}
           {{{ Button
-            className="dialogues__add" 
+            className="btn dialogues__add" 
             text="Создать чат" 
             onClick=onClickCreateChat
           }}}
@@ -71,7 +75,7 @@ export class ChatsPageBase extends Block {
           {{{ DialogueHeader activeChatTitle=activeChatTitle activeChatId=activeChat }}}
           {{{ DialogueMain messages=messages }}}
         {{else}}
-          {{{ Stub }}}
+          {{{ Stub activeChat=activeChat}}}
         {{/if}}
       </div>
       {{{Modal className="modal-create-chat" title="Создать чат" name="chats" text="Создать" onClick=onCreateChat}}}

@@ -1,27 +1,43 @@
 import Block from 'core/Block';
+import { withRouter, PropsWithRouter } from 'hocs/withRouter';
 
 import './link.scss';
 
-interface linkProps {
+interface linkProps extends PropsWithRouter {
   className?: string;
   href?: string;
   text?: string;
-  onClick?: () => void;
+  events?: {
+    click: () => void;
+  }
 }
 
-export class Link extends Block {
+export class LinkBase extends Block {
   static componentName = "Link";
   
-  constructor({onClick, ...props}: linkProps) {
-    super({events: {click: onClick}, ...props});
+  constructor(props: linkProps) {
+    super({
+      ...props,
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
+          this.navigate();
+        } 
+      }
+    })
+  }
+
+  navigate() {
+    this.props.router.go(this.props.href);
   }
 
   protected render(): string {
     // language=hbs
     return `
-      <a class="link {{className}}" href="{{href}}">
+      <a class="{{className}}" href="{{href}}">
         {{text}}
       </a>
     `;
   }
 }
+export const Link = withRouter(LinkBase);

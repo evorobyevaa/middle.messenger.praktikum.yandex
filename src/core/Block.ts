@@ -4,7 +4,12 @@ import EventBus from './EventBus';
 
 type Events = Values<typeof Block.EVENTS>;
 
-export default abstract class Block<P extends Record<string, any> = any> {
+export interface BlockClass<P> extends Function {
+  new (props: P): Block<P>;
+  componentName?: string;
+}
+
+export default class Block<P = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -18,7 +23,9 @@ export default abstract class Block<P extends Record<string, any> = any> {
 
   protected _element: Nullable<HTMLElement> = null;
 
-  protected readonly  props: P;
+  protected props: Readonly<P>;
+
+  protected state: any = {};
 
   protected children: {[id: string]: Block} = {};
 
@@ -29,7 +36,9 @@ export default abstract class Block<P extends Record<string, any> = any> {
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
-    this.props = this._makePropsProxy(props || ({} as P));
+    this.props = props || ({} as P);
+
+    this.state = this._makePropsProxy(this.state);
 
     this.eventBus = () => eventBus;
 
@@ -64,7 +73,7 @@ export default abstract class Block<P extends Record<string, any> = any> {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: object, newProps: object) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -72,15 +81,28 @@ export default abstract class Block<P extends Record<string, any> = any> {
     this._render();
   }
 
-  componentDidUpdate(_oldProps: object, _newProps: object) {
+  componentDidUpdate(_oldProps: P, _newProps: P) {
     return true;
   }
 
-  setProps = (nextProps: object) => {
-    if (!nextProps) {
+  setProps = (nextPartialProps: Partial<P>) => {
+    if (!nextPartialProps) {
       return;
     }
-    Object.assign(this.props, nextProps);
+    const prevProps = this.props;
+    const nextProps = { ...prevProps, ...nextPartialProps }
+
+    this.props = nextProps
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
+  };
+
+  setState = (nextState: any) => {
+    if (!nextState) {
+      return;
+    }
+
+    Object.assign(this.state, nextState);
   };
 
   getProps = () => this.props;
@@ -109,7 +131,7 @@ export default abstract class Block<P extends Record<string, any> = any> {
     return this.element!;
   }
 
-  private _makePropsProxy(props: P): P {
+  private _makePropsProxy(props: any): any {
     const self = this;
 
     return new Proxy(props as unknown as object, {
@@ -134,7 +156,7 @@ export default abstract class Block<P extends Record<string, any> = any> {
   }
 
   private _removeEvents() {
-    const events: Record<string, () => void> = (this.props as P).events;
+    const events: Record<string, () => void> = (this.props as any).events;
 
     if (!events || !this._element) {
       return;
@@ -146,7 +168,7 @@ export default abstract class Block<P extends Record<string, any> = any> {
   }
 
   private _addEvents() {
-    const events: Record<string, () => void> = (this.props as P).events;
+    const events: Record<string, () => void> = (this.props as any).events;
 
     if (!events) {
       return;
@@ -163,7 +185,7 @@ export default abstract class Block<P extends Record<string, any> = any> {
     const fragment = document.createElement('template');
 
     const template = Handlebars.compile(this.render());
-    fragment.innerHTML = template({...this.props, children: this.children, refs: this.refs});
+    fragment.innerHTML = template({...this.state, ...this.props, children: this.children, refs: this.refs});
 
     Object.entries(this.children).forEach(([id, component]) => {
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);

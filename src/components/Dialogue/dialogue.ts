@@ -22,6 +22,7 @@ export class DialogueBase extends Block {
   static componentName = "Dialogue";
 
   constructor({onClick, ...props}: dialogueProps) {
+
     super({
       ...props, 
       events: { 
@@ -81,4 +82,4 @@ export class DialogueBase extends Block {
 
 export const withActiveChat = withStore((state) => ({ activeChat: state.activeChat }));
 
-export const Dialogue = withActiveChat(DialogueBase);
+export const Dialogue = withActiveChat( DialogueBase as typeof Block);

@@ -7,8 +7,8 @@ import AuthController from "controllers/AuthController";
 import { Validator } from 'helpers/ValidateForm';
 
 export class ProfileEditPageBase extends Block {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super({...props});
     AuthController.fetchUser();
     const validator = new Validator();
 
@@ -36,7 +36,10 @@ export class ProfileEditPageBase extends Block {
   protected render(): string {
     return `
       <div class="profile__container">
-        <a class="link-back" href="/profile"></a>
+        {{{ Link 
+          className="link-back" 
+          href="/profile" 
+        }}}
         <div class="center">
           {{# Form className="profile" onSubmit=onSubmit }}
             {{{ Avatar path=avatar }}}
@@ -85,7 +88,7 @@ export class ProfileEditPageBase extends Block {
             }}}
             </div>
             {{{ Button 
-              className="profile__save-btn" 
+              className="btn profile__save-btn" 
               type="submit" 
               text="Сохранить"
             }}}
